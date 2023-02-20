@@ -1,1 +1,9 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@localhost:27017
+      database: ${MONGODB_DATABASE}
+      auto-index-creation: true
+  jpa:
+    show-sql: true
 
