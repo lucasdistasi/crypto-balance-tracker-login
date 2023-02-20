@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails
 import java.time.LocalDateTime
 import java.util.*
 
-@Document
+@Document("Users")
 data class UserEntity(
     @Indexed(unique = true)
     private var username: String,
