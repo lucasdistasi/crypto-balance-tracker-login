@@ -10,6 +10,7 @@ plugins {
 
 ext {
 	jsonWebTokenVersion = "0.11.5"
+	mockkVersion = "1.13.4"
 }
 
 group = 'com.distasilucas'
@@ -31,8 +32,10 @@ dependencies {
 	runtimeOnly "io.jsonwebtoken:jjwt-impl:${jsonWebTokenVersion}"
 	runtimeOnly "io.jsonwebtoken:jjwt-jackson:${jsonWebTokenVersion}"
 
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation "org.springframework.boot:spring-boot-starter-test"
+	testImplementation "org.springframework.security:spring-security-test"
+	testImplementation "io.mockk:mockk:${mockkVersion}"
+
 }
 
 tasks.withType(KotlinCompile) {

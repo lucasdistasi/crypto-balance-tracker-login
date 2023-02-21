@@ -32,5 +32,4 @@ class SecurityConfiguration(val authFilter: JwtAuthFilter, val provider: Authent
 
         return httpSecurity.build()
     }
-
 }

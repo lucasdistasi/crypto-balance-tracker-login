@@ -17,15 +17,16 @@ import org.springframework.web.filter.OncePerRequestFilter
 class JwtAuthFilter(val jwtService: JwtService, val userDetailsService: UserDetailsService) : OncePerRequestFilter() {
 
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain) {
-        val authHeader: String = request.getHeader("Authorization")
+        val authHeader: String? = request.getHeader("Authorization")
+        val header: String? = authHeader?.split(" ")?.get(0)
 
-        if (StringUtils.hasText(authHeader) || !authHeader.startsWith("Bearer ")) {
+        if (authHeader == null || !StringUtils.hasText(authHeader) || isNotBearerToken(header)) {
             filterChain.doFilter(request, response)
             return
         }
 
-        val jwtToken = authHeader.substring(7)
-        val userName = jwtService.extractJwtToken(jwtToken)
+        val jwtToken: String = authHeader.split(" ")[1]
+        val userName = jwtService.extractUsername(jwtToken)
 
         if (StringUtils.hasText(userName) && isNotAlreadyAuthenticated()) {
             val userDetails: UserDetails = this.userDetailsService.loadUserByUsername(userName)
@@ -40,6 +41,8 @@ class JwtAuthFilter(val jwtService: JwtService, val userDetailsService: UserDeta
 
         filterChain.doFilter(request, response)
     }
+
+    private fun isNotBearerToken(authHeader: String?) = authHeader?.equals("Bearer") == false
 
     private fun isNotAlreadyAuthenticated(): Boolean {
         return null == SecurityContextHolder.getContext().authentication
