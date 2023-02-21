@@ -9,3 +9,6 @@ spring:
 
 jwt:
   signing-key: ${JWT_SIGNING_KEY}
+
+server:
+  port: 0

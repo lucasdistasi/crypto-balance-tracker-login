@@ -19,10 +19,6 @@ class JwtServiceImpl : JwtService {
     @Value("\${jwt.signing-key}")
     private final val KEY: String? = null
 
-    override fun extractJwtToken(token: String): String {
-        TODO("Not yet implemented")
-    }
-
     override fun extractUsername(token: String): String {
         return extractClaim(token, Claims::getSubject)
     }

@@ -24,13 +24,13 @@ class AuthenticationServiceImpl(
 
         try {
             authenticationManager.authenticate(userAuthenticationToken)
+
+            val userEntity = userService.findByUsername(userName)
+            val token = jwtService.generateToken(userEntity)
+
+            return JwtTokenResponse(token)
         } catch (ex: AuthenticationException) {
             throw InvalidCredentialsException("Invalid credentials")
         }
-
-        val userEntity = userService.findByUsername(userName)
-        val token = jwtService.generateToken(userEntity)
-
-        return JwtTokenResponse(token)
     }
 }
