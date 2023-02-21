@@ -1,6 +1,6 @@
 # Crypto Balance Tracker Login
 
-Crypto Balance Tracker Login it's a Java-Kotlin application that generates a JWT if the given user and password exists 
+Crypto Balance Tracker Login it's a Kotlin-Spring application that generates a JWT if the given user and password exists 
 in a Mongo database. This JWT is needed in order to consume the endpoints from [crypto-balance-tracker](https://gitlab.com/lucas.distasi/crypto-balance-tracker).
 <br>
 <br>
