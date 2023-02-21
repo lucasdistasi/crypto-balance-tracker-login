@@ -1,5 +1,6 @@
 package com.distasilucas.cryptobalancetrackerlogin.service.impl
 
+import com.distasilucas.cryptobalancetrackerlogin.exception.InvalidCredentialsException
 import com.distasilucas.cryptobalancetrackerlogin.model.JwtTokenResponse
 import com.distasilucas.cryptobalancetrackerlogin.model.UserDTO
 import com.distasilucas.cryptobalancetrackerlogin.service.AuthenticationService
@@ -7,6 +8,7 @@ import com.distasilucas.cryptobalancetrackerlogin.service.JwtService
 import com.distasilucas.cryptobalancetrackerlogin.service.UserService
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.AuthenticationException
 import org.springframework.stereotype.Service
 
 @Service
@@ -20,7 +22,11 @@ class AuthenticationServiceImpl(
         val userName = userDTO.username
         val userAuthenticationToken = UsernamePasswordAuthenticationToken(userName, userDTO.password)
 
-        authenticationManager.authenticate(userAuthenticationToken)
+        try {
+            authenticationManager.authenticate(userAuthenticationToken)
+        } catch (ex: AuthenticationException) {
+            throw InvalidCredentialsException("Invalid credentials")
+        }
 
         val userEntity = userService.findByUsername(userName)
         val token = jwtService.generateToken(userEntity)
