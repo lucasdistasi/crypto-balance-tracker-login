@@ -32,7 +32,7 @@ class AuthenticationServiceImplTest {
     @Test
     fun shouldAuthenticate() {
         val userDTO = UserDTO("username", "password")
-        val user = UserEntity("username", "password", Role.USER)
+        val user = UserEntity("username", "password", Role.ROLE_USER)
         val userAuthenticationToken = UsernamePasswordAuthenticationToken(userDTO.username, userDTO.password)
         val authToken = UsernamePasswordAuthenticationToken("principal", "credentials")
 
