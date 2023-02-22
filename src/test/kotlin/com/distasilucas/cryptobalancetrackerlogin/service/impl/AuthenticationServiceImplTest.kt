@@ -6,9 +6,7 @@ import com.distasilucas.cryptobalancetrackerlogin.model.Role
 import com.distasilucas.cryptobalancetrackerlogin.model.UserDTO
 import com.distasilucas.cryptobalancetrackerlogin.service.JwtService
 import com.distasilucas.cryptobalancetrackerlogin.service.UserService
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.verify
+import io.mockk.*
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
@@ -25,8 +23,11 @@ class AuthenticationServiceImplTest {
 
     private val authenticationManagerMock = mockk<AuthenticationManager>()
 
+    private val objectValidatorServiceMock = mockk<ObjectValidatorServiceImpl>()
+
     private val authenticationService =
-        AuthenticationServiceImpl(userServiceMock, jwtServiceMock, authenticationManagerMock)
+        AuthenticationServiceImpl(userServiceMock, jwtServiceMock,
+            authenticationManagerMock, objectValidatorServiceMock)
 
     @Test
     fun shouldAuthenticate() {
@@ -35,8 +36,9 @@ class AuthenticationServiceImplTest {
         val userAuthenticationToken = UsernamePasswordAuthenticationToken(userDTO.username, userDTO.password)
         val authToken = UsernamePasswordAuthenticationToken("principal", "credentials")
 
+        every { objectValidatorServiceMock.validate(userDTO) } just runs
         every { authenticationManagerMock.authenticate(userAuthenticationToken) } returns authToken
-        every { userServiceMock.findByUsername(userDTO.username) } returns user
+        every { userServiceMock.findByUsername("username") } returns user
         every { jwtServiceMock.generateToken(user) } returns "token123"
 
         val authenticate = authenticationService.authenticate(userDTO)
@@ -51,6 +53,7 @@ class AuthenticationServiceImplTest {
         val userDTO = UserDTO("username", "password")
         val userAuthenticationToken = UsernamePasswordAuthenticationToken(userDTO.username, userDTO.password)
 
+        every { objectValidatorServiceMock.validate(userDTO) } just runs
         every { authenticationManagerMock.authenticate(userAuthenticationToken) }.throws(AccountExpiredException(""))
 
         val exception = assertThrows<InvalidCredentialsException> {
