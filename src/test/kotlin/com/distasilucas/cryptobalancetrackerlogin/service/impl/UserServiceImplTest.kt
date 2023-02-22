@@ -18,7 +18,7 @@ class UserServiceImplTest {
 
     @Test
     fun shouldFindByUsername() {
-        val userEntity = UserEntity("username", "password", Role.USER)
+        val userEntity = UserEntity("username", "password", Role.ROLE_USER)
 
         every { userService.findByUsername("admin") } returns userEntity
 

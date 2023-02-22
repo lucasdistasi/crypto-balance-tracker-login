@@ -1,5 +1,6 @@
 package com.distasilucas.cryptobalancetrackerlogin.model
 
 enum class Role {
-    ADMIN, USER
+    ROLE_ADMIN,
+    ROLE_USER
 }
