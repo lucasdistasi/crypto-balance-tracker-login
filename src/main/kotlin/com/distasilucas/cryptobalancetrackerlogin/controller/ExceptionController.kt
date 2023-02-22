@@ -1,6 +1,7 @@
 package com.distasilucas.cryptobalancetrackerlogin.controller
 
 import com.distasilucas.cryptobalancetrackerlogin.exception.InvalidCredentialsException
+import com.distasilucas.cryptobalancetrackerlogin.exception.ValidationException
 import com.distasilucas.cryptobalancetrackerlogin.model.ErrorMessage
 import com.distasilucas.cryptobalancetrackerlogin.model.ErrorResponse
 import org.springframework.http.HttpStatus
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 class ExceptionController {
 
     @ExceptionHandler
-    fun handleInvalidCredentialsException(ex: InvalidCredentialsException) : ResponseEntity<ErrorResponse> {
+    fun handleInvalidCredentialsException(ex: InvalidCredentialsException): ResponseEntity<ErrorResponse> {
         val error = ErrorMessage(ex.message)
         val errorResponse = ErrorResponse(HttpStatus.BAD_REQUEST.value(), listOf(error))
 
@@ -21,7 +22,19 @@ class ExceptionController {
     }
 
     @ExceptionHandler
-    fun handleException(ex: Exception) : ResponseEntity<ErrorResponse> {
+    fun handleValidationException(ex: ValidationException): ResponseEntity<ErrorResponse> {
+        val errors = ex.errors
+            .map { ErrorMessage(it) }
+            .toList()
+
+        val errorResponse = ErrorResponse(HttpStatus.BAD_REQUEST.value(), errors)
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body(errorResponse)
+    }
+
+    @ExceptionHandler
+    fun handleException(ex: Exception): ResponseEntity<ErrorResponse> {
         val error = ErrorMessage(ex.message)
         val errorResponse = ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), listOf(error))
 

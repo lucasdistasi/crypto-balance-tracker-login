@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/api/v1/login")
+@RequestMapping("/api/v1")
 class LoginController(val authenticationService: AuthenticationService) {
 
-    @PostMapping
+    @PostMapping("/login")
     fun login(@RequestBody userDTO: UserDTO) : ResponseEntity<JwtTokenResponse> {
         val jwtTokenResponse = authenticationService.authenticate(userDTO)
 
