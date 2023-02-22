@@ -3,6 +3,24 @@
 Crypto Balance Tracker Login it's a Kotlin-Spring application that generates a JWT if the given user and password exists 
 in a Mongo database. This JWT is needed in order to consume the endpoints from [crypto-balance-tracker](https://gitlab.com/lucas.distasi/crypto-balance-tracker).
 <br>
+Bear in mind that you need an User in the Users MongoDB document in order to be able to login and get a token.
+<br>
+If you want to create an user straightforward you can use the code below to create an user from the main class.
+<br>
+Just remember to rollback those changes later and replate *username* and *password* with the desired ones.
+```kotlin
+class CryptoBalanceTrackerLoginApplication(
+    val passwordEncoder: PasswordEncoder,
+    val userRepository: UserRepository
+): CommandLineRunner {
+    override fun run(vararg args: String?) {
+        val userEntity = UserEntity("username", passwordEncoder.encode("password"), Role.ROLE_ADMIN)
+        
+        userRepository.save(userEntity) 
+    }
+}
+```
+With that user you'll be able to login, get a JWT and use all endpoints from the [crypto-balance-tracker](https://gitlab.com/lucas.distasi/crypto-balance-tracker).
 <br>
 Feel free to star, fork or study from the code :)
 
