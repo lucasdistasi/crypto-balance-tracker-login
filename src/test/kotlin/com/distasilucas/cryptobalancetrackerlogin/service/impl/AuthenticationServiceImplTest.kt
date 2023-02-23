@@ -23,7 +23,7 @@ class AuthenticationServiceImplTest {
 
     private val authenticationManagerMock = mockk<AuthenticationManager>()
 
-    private val objectValidatorServiceMock = mockk<ObjectValidatorServiceImpl>()
+    private val objectValidatorServiceMock = mockk<ObjectValidatorServiceImpl<UserDTO>>()
 
     private val authenticationService =
         AuthenticationServiceImpl(userServiceMock, jwtServiceMock,
