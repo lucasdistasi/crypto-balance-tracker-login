@@ -8,6 +8,7 @@ import com.distasilucas.cryptobalancetrackerlogin.service.AuthenticationService
 import com.distasilucas.cryptobalancetrackerlogin.service.JwtService
 import com.distasilucas.cryptobalancetrackerlogin.service.ObjectValidatorService
 import com.distasilucas.cryptobalancetrackerlogin.service.UserService
+import mu.KotlinLogging
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.AuthenticationException
@@ -21,8 +22,12 @@ class AuthenticationServiceImpl(
     val validator: ObjectValidatorService<UserDTO>
 ) : AuthenticationService {
 
+    private val logger = KotlinLogging.logger {}
+
     override fun authenticate(userDTO: UserDTO): JwtTokenResponse {
         validator.validate(userDTO)
+        logger.info("User ${userDTO.username} is trying to authenticate")
+
         val userName = userDTO.username ?: throw ValidationException(setOf("Username cannot be null"), "Invalid data")
         val userAuthenticationToken = UsernamePasswordAuthenticationToken(userName, userDTO.password)
 
