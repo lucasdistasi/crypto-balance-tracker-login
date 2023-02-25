@@ -11,9 +11,6 @@ import java.util.*
 
 @Document("Users")
 data class UserEntity(
-    @Id
-    private var id: String,
-
     @Indexed(unique = true)
     private var username: String,
     private var password: String,
