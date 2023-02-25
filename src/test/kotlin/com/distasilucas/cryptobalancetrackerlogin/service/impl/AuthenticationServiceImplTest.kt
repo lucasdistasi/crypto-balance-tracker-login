@@ -26,15 +26,14 @@ class AuthenticationServiceImplTest {
     private val objectValidatorServiceMock = mockk<ObjectValidatorServiceImpl<UserDTO>>()
 
     private val authenticationService =
-        AuthenticationServiceImpl(userServiceMock, jwtServiceMock,
-            authenticationManagerMock, objectValidatorServiceMock)
+        AuthenticationServiceImpl(jwtServiceMock, authenticationManagerMock, objectValidatorServiceMock)
 
     @Test
     fun shouldAuthenticate() {
         val userDTO = UserDTO("username", "password")
         val user = UserEntity("username", "password", Role.ROLE_USER)
         val userAuthenticationToken = UsernamePasswordAuthenticationToken(userDTO.username, userDTO.password)
-        val authToken = UsernamePasswordAuthenticationToken("principal", "credentials")
+        val authToken = UsernamePasswordAuthenticationToken(user, "credentials")
 
         every { objectValidatorServiceMock.validate(userDTO) } just runs
         every { authenticationManagerMock.authenticate(userAuthenticationToken) } returns authToken
