@@ -1,14 +1,13 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@localhost:27017
       database: ${MONGODB_DATABASE}
       auto-index-creation: true
-  jpa:
-    show-sql: true
+      host: mongo-crypto-db
+      port: 27017
 
 jwt:
   signing-key: ${JWT_SIGNING_KEY}
 
 server:
-  port: 0
+  port: 8081
