@@ -35,18 +35,8 @@ Feel free to star, fork or study from the code :)
 
 ---
 
-1. You must have **MongoDB** installed in your machine.
-2. Download the project.
-3. Create the database. You can use a custom database name if you want.
-4. Once you downloaded the project, you need to set up some environment variables.
-    1. _MONGODB_DATABASE_. The database name.
-    2. _MONGODB_USERNAME_. The username of your database.
-    3. _MONGODB_PASSWORD_. The password of your user.
-    4. _JWT_SIGNING_KEY_. The Signing Key if you are working with the secured branch.
-5. Start the program in your favourite IDE or run the following command from the CLI.
-
->./gradlew bootRun
-
+- Either your are using master or no-security branch, you'll find all the needed information in
+[crypto-balance-tracker](https://gitlab.com/lucas.distasi/crypto-balance-tracker) project.
 
 If you found this project useful or you learnt something from it, you can consider gifting me a coup of coffee :)
 
