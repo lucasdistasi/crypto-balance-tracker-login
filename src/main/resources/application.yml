@@ -11,3 +11,11 @@ jwt:
 
 server:
   port: 8081
+
+logging:
+  charset:
+    console: UTF-8
+  level:
+    root: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5level) %magenta([ %thread ]) %green(%logger) - %boldMagenta(%msg%n)"
