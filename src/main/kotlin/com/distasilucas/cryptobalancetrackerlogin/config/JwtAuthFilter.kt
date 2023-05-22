@@ -14,11 +14,14 @@ import org.springframework.util.StringUtils
 import org.springframework.web.filter.OncePerRequestFilter
 
 @Component
-class JwtAuthFilter(val jwtService: JwtService, val userDetailsService: UserDetailsService) : OncePerRequestFilter() {
+class JwtAuthFilter(
+    private val jwtService: JwtService,
+    private val userDetailsService: UserDetailsService
+) : OncePerRequestFilter() {
 
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain) {
         val authHeader: String? = request.getHeader("Authorization")
-        val header: String? = authHeader?.split(" ")?.get(0)
+        val header: String = authHeader?.split(" ")?.get(0) ?: ""
 
         if (authHeader == null || !StringUtils.hasText(authHeader) || isNotBearerToken(header)) {
             filterChain.doFilter(request, response)
@@ -42,9 +45,7 @@ class JwtAuthFilter(val jwtService: JwtService, val userDetailsService: UserDeta
         filterChain.doFilter(request, response)
     }
 
-    private fun isNotBearerToken(authHeader: String?) = authHeader?.equals("Bearer") == false
+    private fun isNotBearerToken(authHeader: String) = authHeader != "Bearer"
 
-    private fun isNotAlreadyAuthenticated(): Boolean {
-        return null == SecurityContextHolder.getContext().authentication
-    }
+    private fun isNotAlreadyAuthenticated(): Boolean = null == SecurityContextHolder.getContext().authentication
 }

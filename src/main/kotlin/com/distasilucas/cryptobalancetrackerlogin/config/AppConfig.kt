@@ -12,7 +12,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 
 @Configuration
-class AppConfig(val userService: UserService) {
+class AppConfig(
+    private val userService: UserService
+) {
 
     @Bean
     fun passwordEncoder(): PasswordEncoder {
@@ -20,9 +22,7 @@ class AppConfig(val userService: UserService) {
     }
 
     @Bean
-    fun userDetailsService(): UserDetailsService {
-        return UserDetailsService { userName -> userService.findByUsername(userName) }
-    }
+    fun userDetailsService(): UserDetailsService = UserDetailsService { userName -> userService.findByUsername(userName) }
 
     @Bean
     fun authenticationProvider(): AuthenticationProvider {
@@ -34,8 +34,6 @@ class AppConfig(val userService: UserService) {
     }
 
     @Bean
-    fun authenticationManager(config: AuthenticationConfiguration): AuthenticationManager {
-        return config.authenticationManager
-    }
+    fun authenticationManager(config: AuthenticationConfiguration): AuthenticationManager = config.authenticationManager
 
 }

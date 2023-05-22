@@ -8,7 +8,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
 
 @Service
-class UserServiceImpl(val userRepository: UserRepository) : UserService {
+class UserServiceImpl(
+    private val userRepository: UserRepository
+) : UserService {
 
     private val logger = KotlinLogging.logger {}
 

@@ -16,9 +16,9 @@ import org.springframework.stereotype.Service
 
 @Service
 class AuthenticationServiceImpl(
-    val jwtService: JwtService,
-    val authenticationManager: AuthenticationManager,
-    val validator: ObjectValidatorService<UserDTO>
+    private val jwtService: JwtService,
+    private val authenticationManager: AuthenticationManager,
+    private val validator: ObjectValidatorService<UserDTO>
 ) : AuthenticationService {
 
     private val logger = KotlinLogging.logger {}
