@@ -11,11 +11,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-class SecurityConfiguration(val authFilter: JwtAuthFilter, val provider: AuthenticationProvider) {
+class SecurityConfiguration(
+    private val authFilter: JwtAuthFilter,
+    private val provider: AuthenticationProvider
+) {
 
     @Bean
     fun securityFilterChain(httpSecurity: HttpSecurity): SecurityFilterChain {
-        httpSecurity
+        return httpSecurity
             .csrf()
             .disable()
             .authorizeHttpRequests()
@@ -29,7 +32,6 @@ class SecurityConfiguration(val authFilter: JwtAuthFilter, val provider: Authent
             .and()
             .authenticationProvider(provider)
             .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter::class.java)
-
-        return httpSecurity.build()
+            .build()
     }
 }

@@ -18,33 +18,20 @@ data class UserEntity(
     private var createdAt: LocalDateTime?=LocalDateTime.now(),
 
     @Id
-    private var userId: String?=UUID.randomUUID().toString()
+    private var userId: String = UUID.randomUUID().toString()
 ) : UserDetails {
-    override fun getAuthorities(): List<SimpleGrantedAuthority> {
-        return listOf(SimpleGrantedAuthority(role.name))
-    }
 
-    override fun getPassword(): String {
-        return password
-    }
+    override fun getAuthorities() = listOf(SimpleGrantedAuthority(role.name))
 
-    override fun getUsername(): String {
-        return username
-    }
+    override fun getPassword() = password
 
-    override fun isAccountNonExpired(): Boolean {
-        return true
-    }
+    override fun getUsername() = username
 
-    override fun isAccountNonLocked(): Boolean {
-        return true
-    }
+    override fun isAccountNonExpired() = true
 
-    override fun isCredentialsNonExpired(): Boolean {
-        return true
-    }
+    override fun isAccountNonLocked() = true
 
-    override fun isEnabled(): Boolean {
-        return true
-    }
+    override fun isCredentialsNonExpired() = true
+
+    override fun isEnabled() = true
 }
