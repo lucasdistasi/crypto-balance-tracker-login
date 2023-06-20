@@ -19,17 +19,14 @@ class SecurityConfiguration(
     @Bean
     fun securityFilterChain(httpSecurity: HttpSecurity): SecurityFilterChain {
         return httpSecurity
-            .csrf()
-            .disable()
-            .authorizeHttpRequests()
-            .requestMatchers("/api/v1/login")
-            .permitAll()
-            .anyRequest()
-            .authenticated()
-            .and()
-            .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
+            .csrf { it.disable() }
+            .authorizeHttpRequests {
+                it.requestMatchers("/api/v1/login")
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated()
+            }
+            .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
             .authenticationProvider(provider)
             .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter::class.java)
             .build()
