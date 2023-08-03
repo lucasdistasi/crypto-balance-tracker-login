@@ -1,5 +1,15 @@
 # Crypto Balance Tracker Login
 
+<a href="https://github.com/lucasdistasi/crypto-balance-tracker-login/actions">
+    <img alt="Pipeline Status" src="https://github.com/lucasdistasi/crypto-balance-tracker-login/actions/workflows/main.yml/badge.svg"/>
+</a>
+<a href="https://lucasdistasi.github.io/crypto-balance-tracker-login/">
+    <img alt="Code Coverage" src="https://github.com/lucasdistasi/crypto-balance-tracker-login/blob/gh-pages/badges/jacoco.svg"/>
+</a>
+<a href="#">
+    <img alt="Project views" src="https://hits.dwyl.com/lucasdistasi/crypto-balance-tracker-login.svg"/>
+</a>
+
 Crypto Balance Tracker Login it's a Kotlin-Spring application that generates a JWT if the given user and password exists 
 in a Mongo database. This JWT is needed in order to consume the endpoints from [crypto-balance-tracker](https://github.com/lucasdistasi/crypto-balance-tracker).
 <br>
@@ -15,7 +25,7 @@ All the information you need can be found in [crypto-balance-tracker](https://gi
 
 ### I want to try this application on my local machine. What should I do?
 
-- Head to [crypto-balance-tracker](https://github.com/lucasdistasi/crypto-balance-tracker) :)
+- Head towards [crypto-balance-tracker](https://github.com/lucasdistasi/crypto-balance-tracker) :)
 
 ---
 
