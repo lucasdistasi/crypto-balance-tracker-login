@@ -7,6 +7,7 @@ import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import org.springframework.http.HttpStatusCode
 
 class LoginControllerTest {
 
@@ -24,6 +25,7 @@ class LoginControllerTest {
         val responseEntity = loginController.login(userDTO)
 
         assertEquals(token.token, responseEntity.body?.token)
+        assertEquals(HttpStatusCode.valueOf(200), responseEntity.statusCode)
     }
 
 
