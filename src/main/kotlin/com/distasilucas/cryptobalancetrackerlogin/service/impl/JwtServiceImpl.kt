@@ -19,17 +19,13 @@ class JwtServiceImpl : JwtService {
     @Value("\${jwt.signing-key}")
     private final val KEY: String? = null
 
-    override fun extractUsername(token: String): String {
-        return extractClaim(token, Claims::getSubject)
-    }
+    override fun extractUsername(token: String): String = extractClaim(token, Claims::getSubject)
 
-    override fun isTokenValid(token: String, userDetails: UserDetails): Boolean {
-        return extractUsername(token) == userDetails.username && isTokenNonExpired(token)
-    }
+    override fun isTokenValid(token: String, userDetails: UserDetails) =
+        extractUsername(token) == userDetails.username &&
+                isTokenNonExpired(token)
 
-    override fun generateToken(userDetails: UserDetails): String {
-        return generateToken(HashMap(), userDetails)
-    }
+    override fun generateToken(userDetails: UserDetails): String = generateToken(HashMap(), userDetails)
 
     override fun generateToken(extraClaims: Map<String, Any>, userDetails: UserDetails): String {
         return Jwts.builder()
@@ -41,13 +37,9 @@ class JwtServiceImpl : JwtService {
             .compact()
     }
 
-    private fun isTokenNonExpired(token: String): Boolean {
-        val expiration = extractClaim(token, Claims::getExpiration)
+    private fun isTokenNonExpired(token: String) = extractClaim(token, Claims::getExpiration).after(Date())
 
-        return expiration.after(Date())
-    }
-
-    private fun <T: Any> extractClaim(token: String, resolver: (Claims) -> T): T {
+    private fun <T : Any> extractClaim(token: String, resolver: (Claims) -> T): T {
         val claims = extractClaims(token)
 
         return resolver.invoke(claims)

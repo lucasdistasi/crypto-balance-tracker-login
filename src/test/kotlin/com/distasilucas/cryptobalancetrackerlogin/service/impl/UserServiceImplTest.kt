@@ -9,6 +9,9 @@ import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
+import org.junit.jupiter.api.assertThrows
+import org.springframework.security.core.userdetails.UsernameNotFoundException
+import java.util.*
 
 class UserServiceImplTest {
 
@@ -30,5 +33,14 @@ class UserServiceImplTest {
             { assertEquals(userEntity.authorities, user.authorities) },
             { verify { userRepositoryMock.findByUsername("admin") } }
         )
+    }
+
+    @Test
+    fun `should throw UsernameNotFoundException when username is not found`() {
+        every { userRepositoryMock.findByUsername("admin") } returns Optional.empty()
+
+        val exception = assertThrows<UsernameNotFoundException> { userService.findByUsername("admin") }
+
+        assertEquals("Username not found", exception.message)
     }
 }
