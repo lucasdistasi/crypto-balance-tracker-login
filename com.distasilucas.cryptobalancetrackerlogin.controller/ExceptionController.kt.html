@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExceptionController.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">crypto-balance-tracker-login</a> &gt; <a href="index.source.html" class="el_package">com.distasilucas.cryptobalancetrackerlogin.controller</a> &gt; <span class="el_source">ExceptionController.kt</span></div><h1>ExceptionController.kt</h1><pre class="source lang-java linenums">package com.distasilucas.cryptobalancetrackerlogin.controller
+
+import com.distasilucas.cryptobalancetrackerlogin.exception.InvalidCredentialsException
+import com.distasilucas.cryptobalancetrackerlogin.exception.ValidationException
+import com.distasilucas.cryptobalancetrackerlogin.model.ErrorMessage
+import com.distasilucas.cryptobalancetrackerlogin.model.ErrorResponse
+import mu.KotlinLogging
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.ExceptionHandler
+import org.springframework.web.bind.annotation.RestControllerAdvice
+
+<span class="fc" id="L13">@RestControllerAdvice</span>
+<span class="fc" id="L14">class ExceptionController {</span>
+
+<span class="pc" id="L16">    private val logger = KotlinLogging.logger {}</span>
+
+    @ExceptionHandler
+    fun handleInvalidCredentialsException(ex: InvalidCredentialsException): ResponseEntity&lt;ErrorResponse&gt; {
+<span class="fc" id="L20">        logger.info(ex) { &quot;An InvalidCredentialsException has occurred: $ex&quot; }</span>
+
+<span class="fc" id="L22">        val error = ErrorMessage(ex.message)</span>
+<span class="fc" id="L23">        val errorResponse = ErrorResponse(HttpStatus.BAD_REQUEST.value(), listOf(error))</span>
+
+<span class="fc" id="L25">        return ResponseEntity.status(HttpStatus.BAD_REQUEST)</span>
+<span class="fc" id="L26">            .body(errorResponse)</span>
+    }
+
+    @ExceptionHandler
+    fun handleValidationException(ex: ValidationException): ResponseEntity&lt;ErrorResponse&gt; {
+<span class="fc" id="L31">        logger.info(ex) { &quot;A ValidationException has occurred: $ex&quot; }</span>
+
+<span class="fc" id="L33">        val errors = ex.errors</span>
+<span class="fc" id="L34">            .map { ErrorMessage(it) }</span>
+<span class="fc" id="L35">            .toList()</span>
+
+<span class="fc" id="L37">        val errorResponse = ErrorResponse(HttpStatus.BAD_REQUEST.value(), errors)</span>
+
+<span class="fc" id="L39">        return ResponseEntity.status(HttpStatus.BAD_REQUEST)</span>
+<span class="fc" id="L40">            .body(errorResponse)</span>
+    }
+
+    @ExceptionHandler
+    fun handleException(ex: Exception): ResponseEntity&lt;ErrorResponse&gt; {
+<span class="fc" id="L45">        logger.info(ex) { &quot;An unhandled Exception has occurred: $ex&quot; }</span>
+
+<span class="fc" id="L47">        val error = ErrorMessage(ex.message)</span>
+<span class="fc" id="L48">        val errorResponse = ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), listOf(error))</span>
+
+<span class="fc" id="L50">        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)</span>
+<span class="fc" id="L51">            .body(errorResponse)</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
