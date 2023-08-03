@@ -14,16 +14,15 @@ import java.util.*
 import kotlin.collections.HashMap
 
 @Service
-class JwtServiceImpl : JwtService {
-
+class JwtServiceImpl(
     @Value("\${jwt.signing-key}")
-    private final val KEY: String? = null
+    private val KEY: String
+) : JwtService {
 
     override fun extractUsername(token: String): String = extractClaim(token, Claims::getSubject)
 
     override fun isTokenValid(token: String, userDetails: UserDetails) =
-        extractUsername(token) == userDetails.username &&
-                isTokenNonExpired(token)
+        extractUsername(token) == userDetails.username
 
     override fun generateToken(userDetails: UserDetails): String = generateToken(HashMap(), userDetails)
 
@@ -36,8 +35,6 @@ class JwtServiceImpl : JwtService {
             .signWith(getSigningKey(), SignatureAlgorithm.HS256)
             .compact()
     }
-
-    private fun isTokenNonExpired(token: String) = extractClaim(token, Claims::getExpiration).after(Date())
 
     private fun <T : Any> extractClaim(token: String, resolver: (Claims) -> T): T {
         val claims = extractClaims(token)
