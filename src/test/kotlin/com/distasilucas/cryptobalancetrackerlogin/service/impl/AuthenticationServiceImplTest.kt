@@ -2,6 +2,7 @@ package com.distasilucas.cryptobalancetrackerlogin.service.impl
 
 import com.distasilucas.cryptobalancetrackerlogin.entity.UserEntity
 import com.distasilucas.cryptobalancetrackerlogin.exception.InvalidCredentialsException
+import com.distasilucas.cryptobalancetrackerlogin.exception.ValidationException
 import com.distasilucas.cryptobalancetrackerlogin.model.Role
 import com.distasilucas.cryptobalancetrackerlogin.model.UserDTO
 import com.distasilucas.cryptobalancetrackerlogin.service.JwtService
@@ -45,6 +46,19 @@ class AuthenticationServiceImplTest {
         assertAll(
             { assertEquals("token123", authenticate.token) }
         )
+    }
+
+    @Test
+    fun `should throw ValidationException when username is null`() {
+        val userDTO = UserDTO(null, "password")
+
+        justRun { objectValidatorServiceMock.validate(userDTO) }
+
+        val exception = assertThrows<ValidationException> { authenticationService.authenticate(userDTO) }
+
+        assertEquals("Invalid data", exception.message)
+        assertEquals(1, exception.errors.size)
+        assertEquals("Username cannot be null", exception.errors.first())
     }
 
     @Test
