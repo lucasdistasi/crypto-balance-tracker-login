@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-	id 'org.springframework.boot' version '3.1.0'
+	id 'org.springframework.boot' version '3.1.2'
 	id 'io.spring.dependency-management' version '1.1.0'
 	id 'org.graalvm.buildtools.native' version '0.9.18'
 	id 'org.jetbrains.kotlin.jvm' version '1.7.22'
@@ -79,6 +79,9 @@ dependencies {
 	testImplementation "org.springframework.boot:spring-boot-starter-test"
 	testImplementation "org.springframework.security:spring-security-test"
 	testImplementation "io.mockk:mockk:${mockkVersion}"
+
+	// dependencies to override the transitives one which currently have known vulnerabilities
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
 }
 
 tasks.withType(KotlinCompile) {
