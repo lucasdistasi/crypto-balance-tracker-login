@@ -1,19 +1,23 @@
 # Crypto Balance Tracker Login
 
-| |                                                                                                                                                                                              |
-|---|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Pipeline | [![Pipeline Status](https://github.com/lucasdistasi/crypto-balance-tracker-login/actions/workflows/main.yml/badge.svg)](https://github.com/lucasdistasi/crypto-balance-tracker-login/actions) |
-| License | [![License](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)                                                                                      |
-| Code Coverage | [![Code Coverage](https://github.com/lucasdistasi/crypto-balance-tracker-login/blob/gh-pages/badges/jacoco.svg)](https://lucasdistasi.github.io/crypto-balance-tracker-login/)               |
-| Project views | [![Project views](https://hits.dwyl.com/lucasdistasi/crypto-balance-tracker-login.svg)](#)                                                                                                   |
+|               |                                                                                                                                                                                               |
+|---------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Pipeline      | [![Pipeline Status](https://github.com/lucasdistasi/crypto-balance-tracker-login/actions/workflows/main.yml/badge.svg)](https://github.com/lucasdistasi/crypto-balance-tracker-login/actions) |
+| License       | [![License](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)                                                                                       |
+| Code Coverage | [![Code Coverage](https://github.com/lucasdistasi/crypto-balance-tracker-login/blob/gh-pages/badges/jacoco.svg)](https://lucasdistasi.github.io/crypto-balance-tracker-login/)                |
+| Project views | [![Project views](https://hits.dwyl.com/lucasdistasi/crypto-balance-tracker-login.svg)]()                                                                                                     |
+| Snyk Analysis | [![Known Vulnerabilities](https://snyk.io/test/github/lucasdistasi/crypto-balance-tracker-login/badge.svg)](https://snyk.io/test/github/lucasdistasi/crypto-balance-tracker-login)            |
 
-Crypto Balance Tracker Login it's a Kotlin-Spring application that generates a JWT if the given user and password exists 
-in a Mongo database. This JWT is needed in order to consume the endpoints from [crypto-balance-tracker](https://github.com/lucasdistasi/crypto-balance-tracker).
+Crypto Balance Tracker Login it's a Kotlin-Spring application that generates a JWT if the given user and password exists
+in a Mongo database. This JWT is needed in order to consume the endpoints
+from [crypto-balance-tracker](https://github.com/lucasdistasi/crypto-balance-tracker).
 <br>
 Bear in mind that you need an User in the Users MongoDB document in order to be able to login and get a token.
-All the information you need can be found in [crypto-balance-tracker](https://github.com/lucasdistasi/crypto-balance-tracker).
+All the information you need can be found
+in [crypto-balance-tracker](https://github.com/lucasdistasi/crypto-balance-tracker).
 
 ## Technologies used
+
 - Kotlin
 - Spring 6 & Spring Boot 3
     - Spring Security
@@ -41,9 +45,15 @@ Feel free to star, fork, or study from the code! If you'd like to contribute, yo
 | USDT   | ERC20   | 0x304714FDA2060c570B1afb1BC231C0973abBEC23 | [USDT-erc20]  |
 
 [BTC-bitcoin]: https://imgur.com/Hs0DYDk
+
 [BTC-trc20]: https://imgur.com/kdROHrE
+
 [ETH-bep20]: https://imgur.com/DIOiJrL
+
 [ETH-erc20]: https://imgur.com/REXkDmu
+
 [USDT-trc20]: https://imgur.com/ubUWdpI
+
 [USDT-bep20]: https://imgur.com/rrrYd9j
+
 [USDT-erc20]: https://imgur.com/G9DPKvU
