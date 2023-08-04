@@ -1,14 +1,11 @@
 # Crypto Balance Tracker Login
 
-<a href="https://github.com/lucasdistasi/crypto-balance-tracker-login/actions">
-    <img alt="Pipeline Status" src="https://github.com/lucasdistasi/crypto-balance-tracker-login/actions/workflows/main.yml/badge.svg"/>
-</a>
-<a href="https://lucasdistasi.github.io/crypto-balance-tracker-login/">
-    <img alt="Code Coverage" src="https://github.com/lucasdistasi/crypto-balance-tracker-login/blob/gh-pages/badges/jacoco.svg"/>
-</a>
-<a href="#">
-    <img alt="Project views" src="https://hits.dwyl.com/lucasdistasi/crypto-balance-tracker-login.svg"/>
-</a>
+| |                                                                                                                                                                                              |
+|---|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Pipeline | [![Pipeline Status](https://github.com/lucasdistasi/crypto-balance-tracker-login/actions/workflows/main.yml/badge.svg)](https://github.com/lucasdistasi/crypto-balance-tracker-login/actions) |
+| License | [![License](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)                                                                                      |
+| Code Coverage | [![Code Coverage](https://github.com/lucasdistasi/crypto-balance-tracker-login/blob/gh-pages/badges/jacoco.svg)](https://lucasdistasi.github.io/crypto-balance-tracker-login/)               |
+| Project views | [![Project views](https://hits.dwyl.com/lucasdistasi/crypto-balance-tracker-login.svg)](#)                                                                                                   |
 
 Crypto Balance Tracker Login it's a Kotlin-Spring application that generates a JWT if the given user and password exists 
 in a Mongo database. This JWT is needed in order to consume the endpoints from [crypto-balance-tracker](https://github.com/lucasdistasi/crypto-balance-tracker).
