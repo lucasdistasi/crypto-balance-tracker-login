@@ -81,6 +81,7 @@ dependencies {
 	testImplementation "io.mockk:mockk:${mockkVersion}"
 
 	// dependencies to override the transitives one which currently have known vulnerabilities
+	implementation 'org.yaml:snakeyaml:2.0'
 	implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
 }
 
