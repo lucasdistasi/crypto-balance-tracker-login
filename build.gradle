@@ -1,20 +1,20 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-	id 'org.springframework.boot' version '3.1.2'
-	id 'io.spring.dependency-management' version '1.1.0'
-	id 'org.graalvm.buildtools.native' version '0.9.18'
-	id 'org.jetbrains.kotlin.jvm' version '1.7.22'
+	id 'org.springframework.boot' version '3.1.5'
+	id 'io.spring.dependency-management' version '1.1.3'
+	id 'org.graalvm.buildtools.native' version '0.9.28'
+	id 'org.jetbrains.kotlin.jvm' version '1.9.20'
 	id 'jacoco'
-	id 'org.jetbrains.kotlin.plugin.spring' version '1.7.22'
+	id 'org.jetbrains.kotlin.plugin.spring' version '1.9.20'
 }
 
 ext {
-	jsonWebTokenVersion = "0.11.5"
-	jacocoVersion = "0.8.8"
-	mockkVersion = "1.13.5"
+	jsonWebTokenVersion = "0.12.3"
+	jacocoVersion = "0.8.11"
+	mockkVersion = "1.13.8"
 	kotlinLoggingJvmVersion = "3.0.5"
-	logbackVersion = "1.4.8"
+	logbackVersion = "1.4.11"
 }
 
 group = 'com.distasilucas'
@@ -81,8 +81,8 @@ dependencies {
 	testImplementation "io.mockk:mockk:${mockkVersion}"
 
 	// dependencies to override the transitives one which currently have known vulnerabilities
-	implementation 'org.yaml:snakeyaml:2.0'
-	implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+	implementation 'org.yaml:snakeyaml:2.2'
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.3'
 }
 
 tasks.withType(KotlinCompile) {

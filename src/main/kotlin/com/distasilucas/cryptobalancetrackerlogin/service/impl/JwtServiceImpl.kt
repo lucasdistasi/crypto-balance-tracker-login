@@ -3,15 +3,13 @@ package com.distasilucas.cryptobalancetrackerlogin.service.impl
 import com.distasilucas.cryptobalancetrackerlogin.service.JwtService
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
-import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.io.Decoders
 import io.jsonwebtoken.security.Keys
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Service
-import java.security.Key
 import java.util.*
-import kotlin.collections.HashMap
+import javax.crypto.SecretKey
 
 @Service
 class JwtServiceImpl(
@@ -28,11 +26,11 @@ class JwtServiceImpl(
 
     override fun generateToken(extraClaims: Map<String, Any>, userDetails: UserDetails): String {
         return Jwts.builder()
-            .setClaims(extraClaims)
-            .setSubject(userDetails.username)
-            .setIssuedAt(Date(System.currentTimeMillis()))
-            .setExpiration(Date(System.currentTimeMillis() + 1000 * 60 * 24))
-            .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+            .claims(extraClaims)
+            .subject(userDetails.username)
+            .issuedAt(Date(System.currentTimeMillis()))
+            .expiration(Date(System.currentTimeMillis() + 1000 * 60 * 24))
+            .signWith(getSigningKey(), Jwts.SIG.HS256)
             .compact()
     }
 
@@ -43,14 +41,14 @@ class JwtServiceImpl(
     }
 
     private fun extractClaims(token: String): Claims {
-        return Jwts.parserBuilder()
-            .setSigningKey(getSigningKey())
+        return Jwts.parser()
+            .verifyWith(getSigningKey())
             .build()
-            .parseClaimsJws(token)
-            .body
+            .parseSignedClaims(token)
+            .payload
     }
 
-    private fun getSigningKey(): Key {
+    private fun getSigningKey(): SecretKey {
         val jwtBytes: ByteArray = Decoders.BASE64.decode(KEY)
 
         return Keys.hmacShaKeyFor(jwtBytes)
