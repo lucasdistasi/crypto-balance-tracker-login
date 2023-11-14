@@ -1,16 +1,16 @@
 spring:
-  data:
-    mongodb:
-      database: ${MONGODB_DATABASE}
-      auto-index-creation: true
-      host: mongo-crypto-db
-      port: 27017
-
-jwt:
-  signing-key: ${JWT_SIGNING_KEY}
+  application:
+    name: crypto-balance-tracker-login
+  profiles:
+    active: ${ENV_PROFILE:local}
+    group:
+      default: local
 
 server:
   port: 8081
+
+jwt:
+  signing-key: ${JWT_SIGNING_KEY}
 
 logging:
   charset:
