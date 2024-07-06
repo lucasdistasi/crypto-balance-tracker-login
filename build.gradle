@@ -1,25 +1,26 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-	id 'org.springframework.boot' version '3.1.5'
-	id 'io.spring.dependency-management' version '1.1.3'
+	id 'org.springframework.boot' version '3.3.1'
+	id 'io.spring.dependency-management' version '1.1.5'
 	id 'org.graalvm.buildtools.native' version '0.9.28'
-	id 'org.jetbrains.kotlin.jvm' version '1.9.20'
+	id 'org.jetbrains.kotlin.jvm' version '1.9.21'
 	id 'jacoco'
-	id 'org.jetbrains.kotlin.plugin.spring' version '1.9.20'
+	id 'org.jetbrains.kotlin.plugin.spring' version '1.9.21'
 }
 
 ext {
-	jsonWebTokenVersion = "0.12.3"
-	jacocoVersion = "0.8.11"
-	mockkVersion = "1.13.8"
-	kotlinLoggingJvmVersion = "3.0.5"
-	logbackVersion = "1.4.11"
+	jsonWebTokenVersion = "0.12.6"
+	jacocoVersion = "0.8.12"
+	mockkVersion = "1.13.11"
+	logbackVersion = "1.5.6"
+	ioGithubOshai = "7.0.0"
 }
 
 group = 'com.distasilucas'
 version = '1.0.0-SNAPSHOT'
-sourceCompatibility = '17'
+sourceCompatibility = '21'
 
 bootJar {
 	archiveFileName = "${project.name}.jar"
@@ -44,11 +45,9 @@ jacocoTestReport {
 	afterEvaluate {
 		classDirectories.setFrom(files(classDirectories.files.collect {
 			fileTree(dir: it, exclude: [
-					"com/distasilucas/cryptobalancetrackerlogin/config/**",
-					"com/distasilucas/cryptobalancetrackerlogin/model/**",
-					"com/distasilucas/cryptobalancetrackerlogin/entity/**",
-					"com/distasilucas/cryptobalancetrackerlogin/CryptoBalanceTrackerLoginApplication.*",
-					"com/distasilucas/cryptobalancetrackerlogin/CryptoBalanceTrackerLoginApplicationKt.*",
+					"**/configuration/**",
+					"**/CryptoBalanceTrackerLoginApplication**",
+					"**/*\$logger\$*.class"
 			])
 		}))
 	}
@@ -70,8 +69,8 @@ dependencies {
 	implementation "org.jetbrains.kotlin:kotlin-reflect"
 	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 	implementation "io.jsonwebtoken:jjwt-api:${jsonWebTokenVersion}"
-	implementation "io.github.microutils:kotlin-logging-jvm:${kotlinLoggingJvmVersion}"
 	implementation "ch.qos.logback:logback-core:${logbackVersion}"
+	implementation "io.github.oshai:kotlin-logging-jvm:${ioGithubOshai}"
 
 	runtimeOnly "io.jsonwebtoken:jjwt-impl:${jsonWebTokenVersion}"
 	runtimeOnly "io.jsonwebtoken:jjwt-jackson:${jsonWebTokenVersion}"
@@ -79,16 +78,12 @@ dependencies {
 	testImplementation "org.springframework.boot:spring-boot-starter-test"
 	testImplementation "org.springframework.security:spring-security-test"
 	testImplementation "io.mockk:mockk:${mockkVersion}"
-
-	// dependencies to override the transitives one which currently have known vulnerabilities
-	implementation 'org.yaml:snakeyaml:2.2'
-	implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.3'
 }
 
-tasks.withType(KotlinCompile) {
-	kotlinOptions {
-		freeCompilerArgs = ['-Xjsr305=strict']
-		jvmTarget = '17'
+tasks.withType(KotlinCompile).configureEach {
+	compilerOptions {
+		freeCompilerArgs.add("-Xjsr305=strict")
+		setJvmTarget(JvmTarget.JVM_21)
 	}
 }
 

@@ -3,7 +3,7 @@ package com.distasilucas.cryptobalancetrackerlogin.service.impl
 import com.distasilucas.cryptobalancetrackerlogin.entity.UserEntity
 import com.distasilucas.cryptobalancetrackerlogin.repository.UserRepository
 import com.distasilucas.cryptobalancetrackerlogin.service.UserService
-import mu.KotlinLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
 
