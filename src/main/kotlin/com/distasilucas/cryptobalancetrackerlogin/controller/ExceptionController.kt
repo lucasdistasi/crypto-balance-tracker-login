@@ -4,7 +4,7 @@ import com.distasilucas.cryptobalancetrackerlogin.exception.InvalidCredentialsEx
 import com.distasilucas.cryptobalancetrackerlogin.exception.ValidationException
 import com.distasilucas.cryptobalancetrackerlogin.model.ErrorMessage
 import com.distasilucas.cryptobalancetrackerlogin.model.ErrorResponse
-import mu.KotlinLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
