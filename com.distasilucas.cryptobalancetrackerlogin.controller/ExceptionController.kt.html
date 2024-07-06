@@ -4,7 +4,7 @@ import com.distasilucas.cryptobalancetrackerlogin.exception.InvalidCredentialsEx
 import com.distasilucas.cryptobalancetrackerlogin.exception.ValidationException
 import com.distasilucas.cryptobalancetrackerlogin.model.ErrorMessage
 import com.distasilucas.cryptobalancetrackerlogin.model.ErrorResponse
-import mu.KotlinLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 <span class="fc" id="L13">@RestControllerAdvice</span>
 <span class="fc" id="L14">class ExceptionController {</span>
 
-<span class="pc" id="L16">    private val logger = KotlinLogging.logger {}</span>
+<span class="fc" id="L16">    private val logger = KotlinLogging.logger {}</span>
 
     @ExceptionHandler
     fun handleInvalidCredentialsException(ex: InvalidCredentialsException): ResponseEntity&lt;ErrorResponse&gt; {
@@ -51,4 +51,4 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 <span class="fc" id="L51">            .body(errorResponse)</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

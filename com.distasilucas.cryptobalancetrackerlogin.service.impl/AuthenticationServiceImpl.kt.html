@@ -8,7 +8,7 @@ import com.distasilucas.cryptobalancetrackerlogin.model.UserDTO
 import com.distasilucas.cryptobalancetrackerlogin.service.AuthenticationService
 import com.distasilucas.cryptobalancetrackerlogin.service.JwtService
 import com.distasilucas.cryptobalancetrackerlogin.service.ObjectValidatorService
-import mu.KotlinLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.AuthenticationException
@@ -21,11 +21,11 @@ import org.springframework.stereotype.Service
 <span class="fc" id="L21">    private val validator: ObjectValidatorService&lt;UserDTO&gt;</span>
 ) : AuthenticationService {
 
-<span class="pc" id="L24">    private val logger = KotlinLogging.logger {}</span>
+<span class="fc" id="L24">    private val logger = KotlinLogging.logger {}</span>
 
     override fun authenticate(userDTO: UserDTO): JwtTokenResponse {
 <span class="fc" id="L27">        validator.validate(userDTO)</span>
-<span class="fc" id="L28">        logger.info(&quot;User ${userDTO.username} is trying to authenticate&quot;)</span>
+<span class="fc" id="L28">        logger.info { &quot;User ${userDTO.username} is trying to authenticate&quot; }</span>
 
 <span class="fc bfc" id="L30" title="All 2 branches covered.">        val userName = userDTO.username ?: throw ValidationException(setOf(&quot;Username cannot be null&quot;), &quot;Invalid data&quot;)</span>
 
@@ -40,4 +40,4 @@ import org.springframework.stereotype.Service
         }
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
